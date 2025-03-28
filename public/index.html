@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Estrutura de Dados</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="main"></div>
+    <div class="comandos">
+      <p>Digite o valor do nó</p>
+      <input type="number" id="input" placeholder="nó" />
+      <button
+        onclick="inserir(Number(document.getElementById('input').value))"
+        id="add"
+      >
+        Adicionar
+      </button>
+      <button
+        onclick="pesquisar(Number(document.getElementById('input').value))"
+        id="add"
+      >
+        Pesquisar
+      </button>
+      <button
+        onclick="deletarPorCopia(Number(document.getElementById('input').value))"
+        id="remove"
+      >
+        Deletar por cópia
+      </button>
+      <button
+        onclick="deletarPorFusao(Number(document.getElementById('input').value))"
+        id="removeRef"
+      >
+        Deletar por fusão
+      </button>
+      <button onclick="limpar()" id="clear">Limpar</button>
+    </div>
+    <script src="./app.js"></script>
+  </body>
+</html>

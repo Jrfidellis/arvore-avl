@@ -1,4 +1,4 @@
-class No {
+export class No {
   valor: number
   esquerda: No | null
   direita: No | null
@@ -14,18 +14,9 @@ export class ArvoreBinaria {
   raiz: No | null = null
   nos: No[] = []
 
-  mostrarAlturas() {
-    this.nos.forEach((no) => {
-      console.log(this.calculaFatorDeBalanceamento(no))
-    })
-  }
+  constructor(private visitar = (_no: No | null) => {}) {}
 
   inserir(valor: number) {
-    if (this.pesquisar(valor)) {
-      console.log(valor, 'já existe na árvore')
-      return
-    }
-
     if (this.raiz === null) {
       const novaRaiz = new No(valor)
       this.raiz = novaRaiz
@@ -44,28 +35,72 @@ export class ArvoreBinaria {
       } else {
         this.inserirRecursivo(noAtual.esquerda, valor)
       }
-    } else {
+    } else if (valor > noAtual.valor) {
       if (noAtual.direita === null) {
         noAtual.direita = novoNo
         this.nos.push(novoNo)
       } else {
         this.inserirRecursivo(noAtual.direita, valor)
       }
+    } else {
+      globalThis.alert('Elemento já existe na árvore')
+      return
     }
 
-    const fatorDeBalanceamento = this.calculaFatorDeBalanceamento(noAtual)
-    if (fatorDeBalanceamento > 1 || fatorDeBalanceamento < -1) {
-      console.log(noAtual.valor + ' desbalanceado', fatorDeBalanceamento)
-      //this.balancearArvore()
-    }
+    this.balancear(noAtual)
   }
 
-  balancearArvore() {
-    this.nos.sort()
-    const posNovaRaiz = Math.floor(this.nos.length / 2)
-    const novaRaiz = this.nos[posNovaRaiz]
-    this.inserir(novaRaiz.valor)
-    // TO-DO: finalizar
+  balancear(no: No | null) {
+    if (no === null) {
+      return null
+    }
+
+    const pai = this.procurarPai(no.valor)
+    const fatorDeBalanceamento = this.calculaFatorDeBalanceamento(no)
+
+    let noBalanceado: No | null = no
+
+    if (fatorDeBalanceamento > 1) {
+      if (this.calculaFatorDeBalanceamento(no.esquerda!) < 0) {
+        no.esquerda = this.rotacaoEsquerda(no.esquerda!)
+      }
+      noBalanceado = this.rotacaoDireita(no)
+    } else if (fatorDeBalanceamento < -1) {
+      if (this.calculaFatorDeBalanceamento(no.direita!) > 0) {
+        no.direita = this.rotacaoDireita(no.direita!)
+      }
+      noBalanceado = this.rotacaoEsquerda(no)
+    }
+
+    // Atualiza a raiz se necessário
+    if (pai === null) {
+      this.raiz = noBalanceado
+    } else {
+      // Atualiza a referência do pai
+      if (pai.esquerda === no) {
+        pai.esquerda = noBalanceado
+      } else {
+        pai.direita = noBalanceado
+      }
+    }
+
+    return noBalanceado
+  }
+
+  rotacaoDireita(no: No) {
+    return no
+  }
+
+  rotacaoEsquerda(no: No) {
+    return no
+  }
+
+  rotacaoDuplaDireita(no: No) {
+    return no
+  }
+
+  rotacaoDuplaEsquerda(no: No) {
+    return no
   }
 
   calculaFatorDeBalanceamento(no: No) {
@@ -99,6 +134,7 @@ export class ArvoreBinaria {
     let noAnterior: No | null = null
 
     while (no != null) {
+      this.visitar(no)
       if (valor == no.valor) {
         return { no, noAnterior }
       } else if (valor < no.valor) {
@@ -120,12 +156,12 @@ export class ArvoreBinaria {
     const no = this.pesquisar(valor)
 
     if (no == null) {
-      console.log('elemento não está na árvore')
+      globalThis.alert('elemento não está na árvore')
       return
     }
 
     if (this.raiz == null) {
-      console.log('árvore está vazia')
+      globalThis.alert('árvore está vazia')
       return
     }
 
@@ -169,12 +205,12 @@ export class ArvoreBinaria {
     const no = this.pesquisar(valor)
 
     if (no == null) {
-      console.log('elemento não está na árvore')
+      globalThis.alert('elemento não está na árvore')
       return
     }
 
     if (this.raiz == null) {
-      console.log('árvore está vazia')
+      globalThis.alert('árvore está vazia')
       return
     }
 

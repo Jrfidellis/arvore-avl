@@ -1,4 +1,4 @@
-import { assertEquals } from 'https://deno.land/std/assert/mod.ts'
+import { assertEquals } from 'https://deno.land/std@0.224.0/assert/mod.ts'
 import { ArvoreBinaria } from './arvore-binaria.ts'
 
 Deno.test('ArvoreBinaria', async (t) => {
@@ -15,9 +15,13 @@ Deno.test('ArvoreBinaria', async (t) => {
       arvore.inserir(10)
       arvore.inserir(5)
       arvore.inserir(15)
+      arvore.inserir(12)
+      arvore.inserir(1)
       assertEquals(arvore.raiz?.valor, 10)
       assertEquals(arvore.raiz?.esquerda?.valor, 5)
       assertEquals(arvore.raiz?.direita?.valor, 15)
+      assertEquals(arvore.raiz?.direita?.esquerda?.valor, 12)
+      assertEquals(arvore.raiz?.esquerda?.esquerda?.valor, 1)
     }
   )
 
@@ -79,4 +83,54 @@ Deno.test('ArvoreBinaria', async (t) => {
     const pai = arvore.procurarPai(10)
     assertEquals(pai, null)
   })
+
+  await t.step(
+    'deve balancear automaticamente a árvore após inserção - rotação à direita',
+    () => {
+      const arvore = new ArvoreBinaria()
+      arvore.inserir(10)
+      arvore.inserir(5)
+      arvore.inserir(3)
+      assertEquals(arvore.raiz?.valor, 5)
+      assertEquals(arvore.raiz?.direita?.valor, 10)
+    }
+  )
+
+  await t.step(
+    'deve balancear automaticamente a árvore após inserção - rotação à esquerda',
+    () => {
+      const arvore = new ArvoreBinaria()
+      arvore.inserir(10)
+      arvore.inserir(15)
+      arvore.inserir(20)
+      assertEquals(arvore.raiz?.valor, 15)
+      assertEquals(arvore.raiz?.esquerda?.valor, 10)
+    }
+  )
+
+  await t.step(
+    'deve balancear automaticamente a árvore após inserção - rotação dupla à direita',
+    () => {
+      const arvore = new ArvoreBinaria()
+      arvore.inserir(10)
+      arvore.inserir(5)
+      arvore.inserir(7)
+      assertEquals(arvore.raiz?.valor, 7)
+      assertEquals(arvore.raiz?.esquerda?.valor, 5)
+      assertEquals(arvore.raiz?.direita?.valor, 10)
+    }
+  )
+
+  await t.step(
+    'deve balancear automaticamente a árvore após inserção - rotação dupla à esquerda',
+    () => {
+      const arvore = new ArvoreBinaria()
+      arvore.inserir(10)
+      arvore.inserir(15)
+      arvore.inserir(12)
+      assertEquals(arvore.raiz?.valor, 12)
+      assertEquals(arvore.raiz?.esquerda?.valor, 10)
+      assertEquals(arvore.raiz?.direita?.valor, 15)
+    }
+  )
 })

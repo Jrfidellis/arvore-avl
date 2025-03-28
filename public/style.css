@@ -1,0 +1,103 @@
+body {
+  font-family: 'Arial', sans-serif;
+  background: #f4f4f4;
+  color: #333;
+  margin: 0;
+  padding: 16px 24px;
+}
+
+ul,
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  position: relative;
+  display: flex;
+  flex: 1;
+}
+
+div#main > ul {
+  margin-top: 0px;
+}
+
+li {
+  gap: 30px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.no {
+  position: relative;
+  align-self: center;
+  background: #4caf50;
+  color: white;
+  padding: 15px;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
+  text-align: center;
+  transition: background 0.3s ease;
+}
+
+.no:before {
+  display: block;
+  position: absolute;
+  top: -20px;
+  height: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  background: #0e0e0e;
+  content: '';
+}
+
+ul:before {
+  display: block;
+  position: absolute;
+  top: -20px;
+  height: 2px;
+  left: 20%;
+  right: 20%;
+  background: #0e0e0e;
+  content: '';
+}
+
+ul:after {
+  display: block;
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 10px;
+  width: 2px;
+  background: #0e0e0e;
+  content: '';
+}
+
+.comandos {
+  position: absolute;
+  bottom: 40px;
+}
+
+input {
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
+  border: none;
+}
+
+p {
+  margin-bottom: 5px;
+}
+
+button {
+  background: #007bff;
+  color: white;
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
+  border: none;
+}

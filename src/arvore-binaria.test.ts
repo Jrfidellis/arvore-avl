@@ -133,7 +133,8 @@ Deno.test('ArvoreBinaria', async (t) => {
       assertEquals(arvore.raiz?.direita?.valor, 15)
     }
   )
-await t.step(
+
+  await t.step(
     'deve percorrer a árvore pelo caminhamento Pré-ordem', 
     () => {
       const arvore = new ArvoreBinaria()

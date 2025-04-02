@@ -256,4 +256,48 @@ export class ArvoreBinaria {
       }
     }
   }
+
+  preordem(){
+    const arrayNos: number[] = []
+    this.preordemRecursivo(this.raiz, arrayNos)
+    return arrayNos
+
+  }
+
+  private preordemRecursivo(no: No | null, arrayNos: number[] = []){
+    if (no != null) {
+      arrayNos.push(no.valor)
+      this.preordemRecursivo(no.esquerda, arrayNos)
+      this.preordemRecursivo(no.direita, arrayNos)
+    }
+  }
+
+
+  emOrdem() {
+    const arrayNos: number[] = []
+    this.emOrdemRecursivo(this.raiz, arrayNos)
+    return arrayNos
+  }
+
+  private emOrdemRecursivo(no: No | null, arrayNos: number[] = []) {
+    if (no != null){
+      this.emOrdemRecursivo(no.esquerda, arrayNos)
+      arrayNos.push(no.valor)
+      this.emOrdemRecursivo(no.direita, arrayNos)
+    }
+  }
+
+  posOrdem() {
+    const arrayNos: number[] = []
+    this.posOrdemRecursivo(this.raiz, arrayNos)
+    return arrayNos
+  }
+
+  posOrdemRecursivo(no: No | null, arrayNos: number[] = []) {
+    if (no != null){
+      this.posOrdemRecursivo(no.esquerda, arrayNos)
+      this.posOrdemRecursivo(no.direita, arrayNos)
+      arrayNos.push(no.valor)
+    }
+  }
 }

@@ -256,4 +256,61 @@ export class ArvoreBinaria {
       }
     }
   }
+
+  preordem(){
+    const arrayNos: number[] = []
+    this.preordemRecursivo(this.raiz, arrayNos)
+    return arrayNos
+
+  }
+
+  private preordemRecursivo(no: No | null, arrayNos: number[] = []){
+    if (no != null) {
+      arrayNos.push(no.valor)
+      this.preordemRecursivo(no.esquerda, arrayNos)
+      this.preordemRecursivo(no.direita, arrayNos)
+    }
+  }
+
+
+  emOrdem() {
+    const arrayNos: number[] = []
+    this.emOrdemRecursivo(this.raiz, arrayNos)
+    return arrayNos
+  }
+
+  private emOrdemRecursivo(no: No | null, arrayNos: number[] = []) {
+    if (no != null){
+      this.emOrdemRecursivo(no.esquerda, arrayNos)
+      arrayNos.push(no.valor)
+      this.emOrdemRecursivo(no.direita, arrayNos)
+    }
+  }
+
+  posOrdem() {
+    const arrayNos: number[] = []
+    this.posOrdemRecursivo(this.raiz, arrayNos)
+    return arrayNos
+  }
+
+  posOrdemRecursivo(no: No | null, arrayNos: number[] = []) {
+    if (no != null){
+      this.posOrdemRecursivo(no.esquerda, arrayNos)
+      this.posOrdemRecursivo(no.direita, arrayNos)
+      arrayNos.push(no.valor)
+    }
+  }
 }
+
+const arvore = new ArvoreBinaria();
+arvore.inserir(10);
+arvore.inserir(5);
+arvore.inserir(15);
+
+
+console.log("o valor " , arvore.pesquisar(9)?.valor, "esta na árvore") 
+console.log("O pai de 9 é",arvore.procurarPai(9)?.valor)
+
+console.log(arvore.preordem())
+console.log(arvore.emOrdem())
+console.log(arvore.posOrdem())

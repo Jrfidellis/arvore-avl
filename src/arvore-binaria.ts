@@ -301,16 +301,3 @@ export class ArvoreBinaria {
     }
   }
 }
-
-const arvore = new ArvoreBinaria();
-arvore.inserir(10);
-arvore.inserir(5);
-arvore.inserir(15);
-
-
-console.log("o valor " , arvore.pesquisar(9)?.valor, "esta na árvore") 
-console.log("O pai de 9 é",arvore.procurarPai(9)?.valor)
-
-console.log(arvore.preordem())
-console.log(arvore.emOrdem())
-console.log(arvore.posOrdem())

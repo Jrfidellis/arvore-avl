@@ -2,6 +2,9 @@
 
 ![alt text](screenshot.png)
 
+# Disponível em:
+https://jrfidellis.github.io/arvore-avl/
+
 # Como rodar:
 
 Abrir public/index.html no navegador

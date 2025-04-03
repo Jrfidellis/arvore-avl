@@ -50,11 +50,7 @@ export class ArvoreBinaria {
     this.balancear(noAtual)
   }
 
-  balancear(no: No | null) {
-    if (no === null) {
-      return null
-    }
-
+  balancear(no: No) {
     const pai = this.procurarPai(no.valor)
     const fatorDeBalanceamento = this.calculaFatorDeBalanceamento(no)
 
@@ -70,7 +66,7 @@ export class ArvoreBinaria {
         no.direita = this.rotacaoDireita(no.direita!)
       }
       noBalanceado = this.rotacaoEsquerda(no)
-    }
+    } 
 
     // Atualiza a raiz se necessário
     if (pai === null) {
@@ -88,19 +84,29 @@ export class ArvoreBinaria {
   }
 
   rotacaoDireita(no: No) {
-    return no
+    const novoNo = no.esquerda
+    if(!novoNo) {
+      return no
+    }
+  
+    const temp = novoNo.direita
+    novoNo.direita = no
+    no.esquerda = temp
+
+    return novoNo
   }
 
   rotacaoEsquerda(no: No) {
-    return no
-  }
+    const novoNo = no.direita
+    if(!novoNo) {
+      return no
+    }
+  
+    const temp = novoNo.esquerda
+    novoNo.esquerda = no
+    no.direita = temp
 
-  rotacaoDuplaDireita(no: No) {
-    return no
-  }
-
-  rotacaoDuplaEsquerda(no: No) {
-    return no
+    return novoNo
   }
 
   calculaFatorDeBalanceamento(no: No) {
@@ -280,7 +286,7 @@ export class ArvoreBinaria {
   }
 
   private emOrdemRecursivo(no: No | null, arrayNos: number[] = []) {
-    if (no != null){
+    if (no != null) {
       this.emOrdemRecursivo(no.esquerda, arrayNos)
       arrayNos.push(no.valor)
       this.emOrdemRecursivo(no.direita, arrayNos)
@@ -294,10 +300,11 @@ export class ArvoreBinaria {
   }
 
   posOrdemRecursivo(no: No | null, arrayNos: number[] = []) {
-    if (no != null){
+    if (no != null) {
       this.posOrdemRecursivo(no.esquerda, arrayNos)
       this.posOrdemRecursivo(no.direita, arrayNos)
       arrayNos.push(no.valor)
     }
   }
+  
 }

@@ -79,7 +79,7 @@ ul:after {
 
 .comandos {
   position: absolute;
-  bottom: 40px;
+  bottom: 20px;
 }
 
 input {
@@ -91,6 +91,10 @@ input {
 
 p {
   margin-bottom: 5px;
+}
+
+footer {
+  margin-top: 10px;
 }
 
 button {

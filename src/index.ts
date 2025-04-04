@@ -100,13 +100,20 @@ globalThis.pesquisar = function (valor: number) {
   atualizarInterface(true)
 }
 
-globalThis.deletarPorCopia = function (valor: number) {
-  arvore.deletarPorCopia(valor)
-  atualizarInterface()
+globalThis.preOrdem = function () {
+  globalThis.alert(arvore.preordem())
 }
 
-globalThis.deletarPorFusao = function (valor: number) {
-  arvore.deletarPorFusao(valor)
+globalThis.posOrdem = function () {
+  globalThis.alert(arvore.posOrdem())
+}
+
+globalThis.emOrdem = function () {
+  globalThis.alert(arvore.emOrdem())
+}
+
+globalThis.deletarPorCopia = function (valor: number) {
+  arvore.deletarPorCopia(valor)
   atualizarInterface()
 }
 

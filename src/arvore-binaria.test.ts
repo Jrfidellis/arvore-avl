@@ -50,15 +50,6 @@ Deno.test('ArvoreBinaria', async (t) => {
     assertEquals(no, null)
   })
 
-  await t.step('deve deletar nó por fusão', () => {
-    const arvore = new ArvoreBinaria()
-    arvore.inserir(10)
-    arvore.inserir(5)
-    arvore.inserir(15)
-    arvore.deletarPorFusao(5)
-    assertEquals(arvore.pesquisar(5), null)
-  })
-
   await t.step('deve deletar nó por cópia', () => {
     const arvore = new ArvoreBinaria()
     arvore.inserir(10)
@@ -133,38 +124,31 @@ Deno.test('ArvoreBinaria', async (t) => {
       assertEquals(arvore.raiz?.direita?.valor, 15)
     }
   )
-  
-  await t.step(
-    'deve percorrer a árvore pelo caminhamento Pré-ordem', 
-    () => {
-      const arvore = new ArvoreBinaria()
-      arvore.inserir(10)
-      arvore.inserir(5)
-      arvore.inserir(15)
-      const resultado = arvore.preordem()
-      assertEquals(resultado, [10, 5, 15])
+
+  await t.step('deve percorrer a árvore pelo caminhamento Pré-ordem', () => {
+    const arvore = new ArvoreBinaria()
+    arvore.inserir(10)
+    arvore.inserir(5)
+    arvore.inserir(15)
+    const resultado = arvore.preordem()
+    assertEquals(resultado, [10, 5, 15])
   })
 
-  await t.step(
-    'deve percorrer a árvore pelo caminhamento Em ordem', 
-    () => {
-      const arvore = new ArvoreBinaria()
-      arvore.inserir(10)
-      arvore.inserir(5)
-      arvore.inserir(15)
-      const resultado = arvore.emOrdem()
-      assertEquals(resultado, [5, 10, 15])
+  await t.step('deve percorrer a árvore pelo caminhamento Em ordem', () => {
+    const arvore = new ArvoreBinaria()
+    arvore.inserir(10)
+    arvore.inserir(5)
+    arvore.inserir(15)
+    const resultado = arvore.emOrdem()
+    assertEquals(resultado, [5, 10, 15])
   })
 
-  await t.step(
-    'deve percorrer a árvore pelo caminhamento Pós-ordem', 
-    () => {
-      const arvore = new ArvoreBinaria()
-      arvore.inserir(10)
-      arvore.inserir(5)
-      arvore.inserir(15)
-      const resultado = arvore.posOrdem()
-      assertEquals(resultado, [5, 15, 10])
+  await t.step('deve percorrer a árvore pelo caminhamento Pós-ordem', () => {
+    const arvore = new ArvoreBinaria()
+    arvore.inserir(10)
+    arvore.inserir(5)
+    arvore.inserir(15)
+    const resultado = arvore.posOrdem()
+    assertEquals(resultado, [5, 15, 10])
   })
-  
 })

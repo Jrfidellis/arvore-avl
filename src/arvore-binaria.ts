@@ -66,7 +66,7 @@ export class ArvoreBinaria {
         no.direita = this.rotacaoDireita(no.direita!)
       }
       noBalanceado = this.rotacaoEsquerda(no)
-    } 
+    }
 
     // Atualiza a raiz se necessário
     if (pai === null) {
@@ -85,10 +85,10 @@ export class ArvoreBinaria {
 
   rotacaoDireita(no: No) {
     const novoNo = no.esquerda
-    if(!novoNo) {
+    if (!novoNo) {
       return no
     }
-  
+
     const temp = novoNo.direita
     novoNo.direita = no
     no.esquerda = temp
@@ -98,10 +98,10 @@ export class ArvoreBinaria {
 
   rotacaoEsquerda(no: No) {
     const novoNo = no.direita
-    if(!novoNo) {
+    if (!novoNo) {
       return no
     }
-  
+
     const temp = novoNo.esquerda
     novoNo.esquerda = no
     no.direita = temp
@@ -173,27 +173,41 @@ export class ArvoreBinaria {
 
     if (no == this.raiz) {
       let novaRaiz
-      if (this.calculaFatorDeBalanceamento(no) > 0){
+      if (this.calculaFatorDeBalanceamento(no) > 0) {
         novaRaiz = no.esquerda
+        if (!novaRaiz) {
+          return
+        }
         const temp = novaRaiz.direita
         novaRaiz.direita = this.raiz.direita
-        
+
         let temp2 = novaRaiz.direita
+        if (!temp2) {
+          return
+        }
+
         while (temp2.esquerda) {
           temp2 = temp2.esquerda
         }
         temp2.esquerda = temp
       } else {
         novaRaiz = no.direita
+        if (!novaRaiz) {
+          return
+        }
         const temp = novaRaiz.esquerda
         novaRaiz.esquerda = this.raiz.esquerda
-        
+
         let temp2 = novaRaiz.esquerda
+        if (!temp2) {
+          return
+        }
         while (temp2.direita) {
           temp2 = temp2.direita
         }
         temp2.direita = temp
       }
+      this.raiz = novaRaiz
 
       return
     }
@@ -225,77 +239,19 @@ export class ArvoreBinaria {
     }
   }
 
-  deletarPorFusao(valor: number) {
-    const no = this.pesquisar(valor)
-
-    if (no == null) {
-      globalThis.alert('elemento não está na árvore')
-      return
-    }
-
-    if (this.raiz == null) {
-      globalThis.alert('árvore está vazia')
-      return
-    }
-
-    if (no == this.raiz) {
-      this.raiz = null
-      return
-    }
-
-    const pai = this.procurarPai(valor)
-    if (!pai) {
-      throw new Error('pai de ' + valor + ' não encontrado')
-    }
-
-    if (no.direita == null) {
-      if (no === this.raiz) {
-        this.raiz === no.esquerda
-      } else if (pai.esquerda === no) {
-        pai.esquerda = no.esquerda
-      } else {
-        pai.direita = no.esquerda
-      }
-    } else if (no.esquerda === null) {
-      if (no === this.raiz) {
-        this.raiz === no.direita
-      } else if (pai.esquerda === no) {
-        pai.esquerda = no.direita
-      } else {
-        pai.direita = no.direita
-      }
-    } else {
-      let temp: No = no.esquerda
-      while (temp.direita != null) {
-        temp = temp.direita
-      }
-      temp.direita = no.direita
-
-      if (this.raiz == no) {
-        this.raiz = no.esquerda
-      } else if (pai.esquerda == no) {
-        pai.esquerda = no.esquerda
-      } else {
-        pai.direita = no.esquerda
-      }
-    }
-  }
-
-  preordem(){
+  preordem() {
     const arrayNos: number[] = []
     this.preordemRecursivo(this.raiz, arrayNos)
     return arrayNos
-
   }
 
-  private preordemRecursivo(no: No | null, arrayNos: number[] = []){
+  private preordemRecursivo(no: No | null, arrayNos: number[] = []) {
     if (no != null) {
       arrayNos.push(no.valor)
       this.preordemRecursivo(no.esquerda, arrayNos)
       this.preordemRecursivo(no.direita, arrayNos)
     }
   }
-
 
   emOrdem() {
     const arrayNos: number[] = []
@@ -324,5 +280,4 @@ export class ArvoreBinaria {
       arrayNos.push(no.valor)
     }
   }
-  
 }

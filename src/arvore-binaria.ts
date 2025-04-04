@@ -172,7 +172,29 @@ export class ArvoreBinaria {
     }
 
     if (no == this.raiz) {
-      this.raiz = null
+      let novaRaiz
+      if (this.calculaFatorDeBalanceamento(no) > 0){
+        novaRaiz = no.esquerda
+        const temp = novaRaiz.direita
+        novaRaiz.direita = this.raiz.direita
+        
+        let temp2 = novaRaiz.direita
+        while (temp2.esquerda) {
+          temp2 = temp2.esquerda
+        }
+        temp2.esquerda = temp
+      } else {
+        novaRaiz = no.direita
+        const temp = novaRaiz.esquerda
+        novaRaiz.esquerda = this.raiz.esquerda
+        
+        let temp2 = novaRaiz.esquerda
+        while (temp2.direita) {
+          temp2 = temp2.direita
+        }
+        temp2.direita = temp
+      }
+
       return
     }
 
@@ -182,17 +204,13 @@ export class ArvoreBinaria {
     }
 
     if (no.direita == null) {
-      if (no === this.raiz) {
-        this.raiz === no.esquerda
-      } else if (pai.esquerda === no) {
+      if (pai.esquerda === no) {
         pai.esquerda = no.esquerda
       } else {
         pai.direita = no.esquerda
       }
     } else if (no.esquerda === null) {
-      if (no === this.raiz) {
-        this.raiz === no.direita
-      } else if (pai.esquerda === no) {
+      if (pai.esquerda === no) {
         pai.esquerda = no.direita
       } else {
         pai.direita = no.direita

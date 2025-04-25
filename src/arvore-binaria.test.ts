@@ -1,5 +1,6 @@
 import { assertEquals } from 'https://deno.land/std@0.224.0/assert/mod.ts'
 import { ArvoreBinaria } from './arvore-binaria.ts'
+import { expect } from 'jsr:@std/expect'
 
 Deno.test('ArvoreBinaria', async (t) => {
   await t.step('deve inserir primeiro nó na raiz', () => {
@@ -55,8 +56,14 @@ Deno.test('ArvoreBinaria', async (t) => {
     arvore.inserir(10)
     arvore.inserir(5)
     arvore.inserir(15)
+    arvore.inserir(20)
+    arvore.inserir(23)
+    arvore.inserir(215)
+    arvore.inserir(21)
     arvore.deletarPorCopia(5)
     assertEquals(arvore.pesquisar(5), null)
+    const factor = arvore.calculaFatorDeBalanceamento(arvore.raiz!)
+    expect([1, -1, 0]).toContain(factor)
   })
 
   await t.step('deve encontrar pai de um nó', () => {

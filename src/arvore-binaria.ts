@@ -158,85 +158,37 @@ export class ArvoreBinaria {
     }
   }
 
-  deletarPorCopia(valor: number) {
-    const no = this.pesquisar(valor)
+  minValueNode(raiz: No) {
+    let current = raiz
 
-    if (no == null) {
-      globalThis.alert('elemento não está na árvore')
-      return
+    while (current.esquerda !== null) {
+      current = current.esquerda
+    }
+    return current
+  }
+
+  deletarPorCopia(valor: number, raiz = this.raiz) {
+    if (raiz === null) {
+      return raiz
     }
 
-    if (this.raiz == null) {
-      globalThis.alert('árvore está vazia')
-      return
-    }
-
-    if (no == this.raiz) {
-      let novaRaiz
-      if (this.calculaFatorDeBalanceamento(no) > 0) {
-        novaRaiz = no.esquerda
-        if (!novaRaiz) {
-          return
-        }
-        const temp = novaRaiz.direita
-        novaRaiz.direita = this.raiz.direita
-
-        let temp2 = novaRaiz.direita
-        if (!temp2) {
-          return
-        }
-
-        while (temp2.esquerda) {
-          temp2 = temp2.esquerda
-        }
-        temp2.esquerda = temp
-      } else {
-        novaRaiz = no.direita
-        if (!novaRaiz) {
-          return
-        }
-        const temp = novaRaiz.esquerda
-        novaRaiz.esquerda = this.raiz.esquerda
-
-        let temp2 = novaRaiz.esquerda
-        if (!temp2) {
-          return
-        }
-        while (temp2.direita) {
-          temp2 = temp2.direita
-        }
-        temp2.direita = temp
-      }
-      this.raiz = novaRaiz
-
-      return
-    }
-
-    const pai = this.procurarPai(valor)
-    if (!pai) {
-      throw new Error('pai de ' + valor + ' não encontrado')
-    }
-
-    if (no.direita == null) {
-      if (pai.esquerda === no) {
-        pai.esquerda = no.esquerda
-      } else {
-        pai.direita = no.esquerda
-      }
-    } else if (no.esquerda === null) {
-      if (pai.esquerda === no) {
-        pai.esquerda = no.direita
-      } else {
-        pai.direita = no.direita
-      }
+    if (valor < raiz.valor) {
+      raiz.esquerda = this.deletarPorCopia(valor, raiz.esquerda)
+    } else if (valor > raiz.valor) {
+      raiz.direita = this.deletarPorCopia(valor, raiz.direita)
     } else {
-      let temp: No = no.esquerda
-      while (temp.direita != null) {
-        temp = temp.direita
+      if (raiz.esquerda === null) {
+        return raiz.direita
+      } else if (raiz.direita === null) {
+        return raiz.esquerda
       }
-      this.deletarPorCopia(temp.valor)
-      no.valor = temp.valor
+
+      const temp = this.minValueNode(raiz.direita)
+      raiz.valor = temp.valor
+      raiz.direita = this.deletarPorCopia(temp.valor, raiz.direita)
     }
+
+    return this.balancear(raiz)
   }
 
   preordem() {
